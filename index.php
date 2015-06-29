@@ -7,6 +7,7 @@
     <meta name="generator" content="Bootply"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style-login.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -45,11 +46,11 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>
                         <i class="glyphicon glyphicon-chevron-down"></i></a>
                     <ul class="dropdown-menu">
-                        <li><a href="login">Login</a></li>
-                        <li><a href="#">Sign Up</a></li>
+                        <li><a data-toggle="modal" data-target="#loginModal">Login / Register</a></li>
                         <li class="divider"></li>
                         <li><a href="#">Contact Us</a></li>
                     </ul>
+
                 </li>
             </ul>
         </div>
@@ -415,18 +416,13 @@
         </div>
     </div>
 </div>
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-right"><h5>Develop By:Anurag Goel</h5></div>
-        </div>
-    </div>
-</footer>
-
+<?php include_once('php_includes/footer.php'); ?>
 
 <!-- script references -->
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/scripts.js"></script>
+<script src="js/script-login.js"></script>
+<script src="js/script-form.js"></script>
 </body>
 </html>
