@@ -5,74 +5,61 @@
  * Date: 6/29/2015
  * Time: 11:17 AM
  */
-include_once('php_includes/profile_header.php');
+include_once("php_includes/check_login_status.php");
+// If user is already logged in, header that weenis away
+if ($user_ok == false) {
+    header("location: login.php");
+    exit();
+} else {
+
+    $sql = "SELECT * FROM users WHERE id='$log_id' AND username='$log_username' AND password='$log_password' AND activated='1' LIMIT 1";
+    $query = mysqli_query($con, $sql);
+    $row = mysqli_fetch_row($query);
+    $username = $row[1];
+    $email = $row[2];
+    $user_type = "";
+    if ($row[4] == 'g') {
+        $user_type = "GUEST";
+    } else if ($row[4] == 's') {
+        $user_type = "STUDENT";
+
+    } elseif ($row[4] == 'xs') {
+        $user_type = "X-STUDENT";
+
+    } elseif ($row[4] == 't') {
+        $user_type = "TEACHER";
+
+    } else {
+        $user_type = "NA";
+    }
+    $last_login = $row[6];
+
+
+    include_once('php_includes/profile_header.php');
+    include_once('check_profile.php');
+}
+
 ?>
 <!-- NAVBAR CODE END -->
 
 
 <div class="row profile">
     <div class="col-md-3">
-        <div class="profile-sidebar">
-            <!-- SIDEBAR USERPIC -->
-            <div class="profile-userpic">
-                <img
-                    src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg"
-                    class="img-responsive" alt="">
-            </div>
-            <!-- END SIDEBAR USERPIC -->
-            <!-- SIDEBAR USER TITLE -->
-            <div class="profile-usertitle">
-                <div class="profile-usertitle-name">
-                    <?php
-                    echo ucfirst($_GET['u']) . ""; ?>
-                </div>
-                <div class="profile-usertitle-job">
-                    Developer
-                </div>
-            </div>
-            <!-- END SIDEBAR USER TITLE -->
-            <!-- SIDEBAR BUTTONS -->
-            <div class="profile-userbuttons">
-                <button type="button" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-upload"></i> Upload
-                </button>
-                <button type="button" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i> Delete
-                </button>
-            </div>
-            <!-- END SIDEBAR BUTTONS -->
-            <!-- SIDEBAR MENU -->
-            <div class="profile-usermenu">
-                <ul class="nav">
-                    <li class="active">
-                        <a href="#">
-                            <i class="glyphicon glyphicon-home"></i>
-                            Overview </a>
-                    </li>
-
-                    <li>
-                        <a href="#" target="_blank">
-                            <i class="glyphicon glyphicon-ok"></i>
-                            Profile </a>
-                    <li>
-                        <a href="#">
-                            <i class="glyphicon glyphicon-user"></i>
-                            Account Settings </a>
-                    </li>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="glyphicon glyphicon-flag"></i>
-                            Help </a>
-                    </li>
-                </ul>
-            </div>
-            <!-- END MENU -->
-        </div>
+        <?php include_once('php_includes/side_bar.php'); ?>
     </div>
     <div class="col-md-9">
         <div class="profile-content">
             <div class="alert alert-info">
-                <h2>User Bio : </h2>
-                <h4>Bootstrap user profile template </h4>
+                <h2><?php
+                    echo ucfirst($_GET['u']) . ""; ?></h2>
+
+                <p><strong>Email: </strong> <? echo $email; ?> </p>
+
+
+                <p><strong>UserLevel: </strong> <? echo $user_type; ?>
+                </p>
+                <hr>
+                <h4>About Me: </h4>
 
                 <p>
                     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
@@ -95,7 +82,7 @@ include_once('php_includes/profile_header.php');
 <script src="js/jquery.js"></script>
 <!-- REQUIRED BOOTSTRAP SCRIPTS -->
 <script src="js/bootstrap.js"></script>
-
+<script src="js/script-index.js"></script>
 </body>
 
 </html>
